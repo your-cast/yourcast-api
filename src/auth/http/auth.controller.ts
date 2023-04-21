@@ -15,17 +15,13 @@ export class AuthController {
   }
 
   @Post('register')
-  public async register(
-      @Body() createUserDto: CreateUserDto
-  ): Promise<RegistrationStatus> {
+  public async register(@Body() createUserDto: CreateUserDto): Promise<RegistrationStatus> {
     const result: RegistrationStatus = await this.authService.register(
         createUserDto
     );
-
     if (!result.success) {
       throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
     }
-
     return result;
   }
 
@@ -36,7 +32,7 @@ export class AuthController {
 
   @Get('about')
   @UseGuards(AuthGuard())
-  public async testAuth(@Req() req: any): Promise<JwtPayload> {
-    return req.user;
+  public async testAuth(@Req() request: any): Promise<JwtPayload> {
+    return request.user;
   }
 }
