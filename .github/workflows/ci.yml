@@ -27,7 +27,7 @@ jobs:
         run: yarn install
 
       - name: Run tests
-        #run: yarn test:headless
+        #run: yarn test
         run: echo 'tests'
 
       - name: Build
