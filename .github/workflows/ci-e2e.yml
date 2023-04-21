@@ -1,4 +1,4 @@
-name: CI
+name: TEST
 
 on:
   push:
@@ -38,6 +38,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+
+      - name: Migrations to DB
+        run: yarn migrations
 
       - name: Run tests
         run: yarn test:e2e
