@@ -8,12 +8,11 @@ export class SeedUserRecord1565812987671 implements MigrationInterface {
     const user = userRepo.create({
       username: 'bhaidar',
       password: '@dF%^hGb03W~',
-      email: 'bhaidar@gmail.com'
+      email: 'bhaidar@gmail.com',
     });
 
     await userRepo.save(user);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<any> {
-  }
+  public async down(queryRunner: QueryRunner): Promise<any> {}
 }

@@ -11,10 +11,9 @@ import {comparePasswords} from '../../shared/utils';
 @Injectable()
 export class UserService {
   constructor(
-      @InjectRepository(UserEntity)
-      private readonly userRepository: Repository<UserEntity>
-  ) {
-  }
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+  ) {}
 
   async findOne(options?: object): Promise<User> {
     const user = await this.userRepository.findOne(options);
@@ -57,7 +56,7 @@ export class UserService {
     const user: UserEntity = await this.userRepository.create({
       username,
       password,
-      email
+      email,
     });
 
     await this.userRepository.save(user);

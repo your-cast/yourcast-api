@@ -1,5 +1,5 @@
 export interface LoginResponse {
-    username: string;
-    accessToken: any;
-    expiresIn: any;
+  username: string;
+  accessToken: any;
+  expiresIn: any;
 }

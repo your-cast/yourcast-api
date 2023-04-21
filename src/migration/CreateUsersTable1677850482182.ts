@@ -7,7 +7,7 @@ export class CreateUsersTable1677850482182 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     this.logger.log('Start migration');
     await queryRunner.query(
-        `CREATE TABLE "users"
+      `CREATE TABLE "users"
          (
            "id"        uuid              NOT NULL DEFAULT uuid_generate_v4(),
            "username"  character varying NOT NULL,
@@ -17,7 +17,7 @@ export class CreateUsersTable1677850482182 implements MigrationInterface {
            "updated_at" TIMESTAMP         NOT NULL DEFAULT now(),
            CONSTRAINT "unique_username" UNIQUE ("username"),
            CONSTRAINT "primary_key_id" PRIMARY KEY ("id")
-         )`
+         )`,
     );
   }
 

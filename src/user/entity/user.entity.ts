@@ -1,24 +1,28 @@
 import {BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import {ApiProperty} from '@nestjs/swagger';
 
 @Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({type: 'varchar', nullable: false, unique: true, name: "username"})
+  @ApiProperty({example: 'Jonh Doe', description: 'The name of the user.'})
+  @Column({type: 'varchar', nullable: false, unique: true, name: 'username'})
   username: string;
 
-  @Column({type: 'varchar', nullable: false, name: "password"})
+  @ApiProperty({example: '********', description: 'The password of the user.'})
+  @Column({type: 'varchar', nullable: false, name: 'password'})
   password: string;
 
-  @Column({type: 'varchar', nullable: false, name: "email"})
+  @ApiProperty({example: 'jonh.doe@', description: 'The password of the user.'})
+  @Column({type: 'varchar', nullable: false, name: 'email'})
   email: string;
 
-  @CreateDateColumn({name: "created_at"})
+  @CreateDateColumn({name: 'created_at'})
   createdAt?: Date;
 
-  @CreateDateColumn({name: "updated_at"})
+  @CreateDateColumn({name: 'updated_at'})
   updatedAt?: Date;
 
   @BeforeInsert()

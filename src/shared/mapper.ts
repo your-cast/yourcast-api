@@ -8,6 +8,6 @@ export const toUser = (data: UserEntity): User => {
     id,
     username,
     email,
-    createdAt
+    createdAt,
   };
 };

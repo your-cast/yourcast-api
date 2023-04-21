@@ -1,5 +1,5 @@
 export interface ProfileResponse {
-    username: string;
-    email: string;
-    createdAt: Date;
+  username: string;
+  email: string;
+  createdAt: Date;
 }

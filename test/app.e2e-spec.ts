@@ -8,7 +8,7 @@ describe('AppController (e2e)', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -17,30 +17,30 @@ describe('AppController (e2e)', () => {
 
   it('/auth/register (POST)', () => {
     return request(app.getHttpServer())
-        .post('/auth/register')
-        .send({
-          'username': 'Dmytro',
-          'password': '123456',
-          'email': 'dmytro@email.com'
-        })
-        .expect(201)
-        .expect({
-            "success": true,
-            "message": "user registered"
-        });
+      .post('/auth/register')
+      .send({
+        username: 'Dmytro',
+        password: '123456',
+        email: 'dmytro@email.com',
+      })
+      .expect(201)
+      .expect({
+        success: true,
+        message: 'user registered',
+      });
   });
 
   it('/auth/login (POST)', () => {
     return request(app.getHttpServer())
-        .post('/auth/register')
-        .send({
-          'username': 'Dmytro',
-          'password': '123456'
-        })
-        .expect(200)
-        .expect({
-            "username": "Dmytro",
-            "expiresIn": "5h",
-        });
+      .post('/auth/register')
+      .send({
+        username: 'Dmytro',
+        password: '123456',
+      })
+      .expect(200)
+      .expect({
+        username: 'Dmytro',
+        expiresIn: '5h',
+      });
   });
 });
