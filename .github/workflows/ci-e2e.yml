@@ -1,5 +1,5 @@
-name: CI E2E
-description: CI E2E for NestJS
+name: Tests
+description: Tests for NestJS
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
 
 jobs:
   ci:
-    name: CI NestJS E2E
+    name: Tests NestJS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
