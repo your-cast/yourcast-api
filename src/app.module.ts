@@ -15,7 +15,7 @@ import {ConfigModule} from '@nestjs/config';
         CoreModule,
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: ['/vault/secrets/.env.secret', '.env'],
+            envFilePath: ['.env.secret', '.env'],
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',

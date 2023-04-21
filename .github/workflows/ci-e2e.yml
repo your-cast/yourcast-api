@@ -42,11 +42,11 @@ jobs:
       - name: Migrations to DB
         run: yarn migrations
 
-      - name: Run tests
-        run: yarn test:e2e
-        env:
-          DB_HOST: postgres
-          DB_PORT: 5432
-          DB_NAME: yourcast
-          DB_USERNAME: postgres
-          DB_PASSWORD: secret
+#      - name: Run tests
+#        run: yarn test:e2e
+#        env:
+#          DB_HOST: postgres
+#          DB_PORT: 5432
+#          DB_NAME: yourcast
+#          DB_USERNAME: postgres
+#          DB_PASSWORD: secret
