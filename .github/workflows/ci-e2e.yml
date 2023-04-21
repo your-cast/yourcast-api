@@ -11,12 +11,29 @@ on:
       - 'release-**'
 
 jobs:
-  ci:
+  container-job:
+    runs-on: ubuntu-latest
+    container: node:10.18-jessie
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: yourcast
+          POSTGRES_PASSWORD: secret
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+  steps:
     name: Tests NestJS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -28,6 +45,9 @@ jobs:
 
       - name: Run tests
         run: yarn test:e2e
-
-      - name: Build
-        run: yarn build
+        env:
+          DB_HOST: postgres
+          DB_PORT: 5432
+          DB_NAME: yourcast
+          DB_USERNAME: postgres
+          DB_PASSWORD: secret
