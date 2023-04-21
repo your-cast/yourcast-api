@@ -1,4 +1,4 @@
-name: Tests
+name: Test
 
 on:
   push:
@@ -14,7 +14,6 @@ jobs:
   container-job:
     runs-on: ubuntu-latest
     container: node:10.18-jessie
-
     services:
       postgres:
         image: postgres

@@ -3,7 +3,7 @@ changelog:
     labels:
       - ignore-for-release
     authors:
-      - rbua-bot
+      - bot
   categories:
     - title: Breaking Changes
       labels:
@@ -21,4 +21,3 @@ changelog:
     - title: Other Changes
       labels:
         - "*"
-        
