@@ -11,7 +11,7 @@ on:
       - 'release-**'
 
 jobs:
-  steps:
+  ci:
     name: CI NestJS
     runs-on: ubuntu-latest
     steps:
