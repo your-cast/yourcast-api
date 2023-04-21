@@ -1,5 +1,4 @@
 name: CI
-description: CI for NestJS
 
 on:
   push:

@@ -1,5 +1,4 @@
 name: Tests
-description: Tests for NestJS
 
 on:
   push:
