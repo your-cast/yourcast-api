@@ -27,26 +27,26 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-  steps:
-    name: Tests NestJS
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      name: Tests NestJS
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+        - name: Setup Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: '18'
 
-      - name: Install dependencies
-        run: yarn install
+        - name: Install dependencies
+          run: yarn install
 
-      - name: Run tests
-        run: yarn test:e2e
-        env:
-          DB_HOST: postgres
-          DB_PORT: 5432
-          DB_NAME: yourcast
-          DB_USERNAME: postgres
-          DB_PASSWORD: secret
+        - name: Run tests
+          run: yarn test:e2e
+          env:
+            DB_HOST: postgres
+            DB_PORT: 5432
+            DB_NAME: yourcast
+            DB_USERNAME: postgres
+            DB_PASSWORD: secret
