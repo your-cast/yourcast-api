@@ -2,7 +2,7 @@ import {IsNotEmpty, IsEmail} from 'class-validator';
 
 export class CreateUserRequest {
   @IsNotEmpty()
-  username: string;
+  name: string;
 
   @IsNotEmpty()
   password: string;

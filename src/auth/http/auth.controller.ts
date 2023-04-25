@@ -49,6 +49,19 @@ export class AuthController {
     return await this.authService.login(loginUserRequest);
   }
 
+  @ApiOperation({summary: 'Reset password.'})
+  @ApiResponse({
+    status: 200,
+    description: 'User detailed information.'
+  })
+  @Post('reset-password')
+  public async resetPassword(@Req() request: any): Promise<ProfileResponse> {
+    this.logger.log(
+      `[AuthController.resetPassword income request for reset password to user: ] ${request.user.email}`,
+    );
+    return await this.authService.profile(request);
+  }
+
   @ApiOperation({summary: 'Get user profile from the platform.'})
   @ApiResponse({
     status: 200,

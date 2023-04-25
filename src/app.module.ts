@@ -3,10 +3,10 @@ import {AuthModule} from './auth/auth.module';
 import {UserModule} from './user/user.module';
 import {CoreModule} from './core/core.module';
 import {TypeOrmModule} from '@nestjs/typeorm';
-import {CreateUsersTable1677850482182} from './migration/CreateUsersTable1677850482182';
-import {SeedUserRecord1565812987671} from './migration/SeedUserRecord1677850482183';
+import {CreateUsersTable1682421338891} from './migration/CreateUsersTable1682421338891';
 import {UserEntity} from './user/entity/user.entity';
 import {ConfigModule} from '@nestjs/config';
+import {CreateFollowsTable1682421376353} from './migration/CreateFollowsTable1682421376353';
 
 @Module({
   imports: [
@@ -28,12 +28,15 @@ import {ConfigModule} from '@nestjs/config';
       extra:
         process.env.DB_SSL == 'true'
           ? {
-              ssl: {
-                rejectUnauthorized: false,
-              },
-            }
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          }
           : undefined,
-      migrations: [CreateUsersTable1677850482182, SeedUserRecord1565812987671],
+      migrations: [
+        CreateUsersTable1682421338891,
+        CreateFollowsTable1682421376353
+      ],
       entities: [UserEntity],
       migrationsRun: true,
     }),

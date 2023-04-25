@@ -51,7 +51,7 @@ export class AuthService {
 
     return {
       email: user.email,
-      username: user.username,
+      name: user.name,
       ...token,
     };
   }
@@ -64,20 +64,20 @@ export class AuthService {
     const user = await this.userService.findByEmail(request.user);
 
     return {
-      username: user.username,
+      name: user.name,
       email: user.email,
       createdAt: user.createdAt,
     };
   }
 
-  private createToken({username, email}: User): any {
+  private createToken({name, email}: User): any {
     this.logger.log(
       `[AuthService.createToken try generate token for email: ] ${email}`,
     );
 
     const expiresIn = process.env.EXPIRESIN;
     const payload: JwtPayload = {
-      username: username,
+      name: name,
       email: email,
       issuer: 'your-cast.com',
     };

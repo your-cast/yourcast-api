@@ -5,7 +5,7 @@ export class User {
   id: string;
 
   @IsNotEmpty()
-  username: string;
+  name: string;
 
   @IsNotEmpty()
   @IsEmail()
