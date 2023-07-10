@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - 'main'
-      - 'release-**'
+      - 'release/*'
   pull_request:
     branches:
       - 'main'
-      - 'release-**'
+      - 'release/*'
 
 jobs:
   ci:
-    name: CI NestJS
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,3 +28,62 @@ jobs:
 
       - name: Build
         run: yarn build
+
+  tests:
+    name: TESTS
+    runs-on: ubuntu-latest
+    container: node:18.14.2
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: yourcast
+          POSTGRES_PASSWORD: secret
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Migrations to DB
+        run: yarn migrations
+
+  #      - name: Run tests
+  #        run: yarn test:e2e
+  #        env:
+  #          DB_HOST: postgres
+  #          DB_PORT: 5432
+  #          DB_NAME: yourcast
+  #          DB_USERNAME: postgres
+  #          DB_PASSWORD: secret
+
+  deploy:
+    name: DEPLOY
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag kuchura/your-cast-api:latest
+
+      - name: Docker Push
+        run: docker push kuchura/your-cast-api
