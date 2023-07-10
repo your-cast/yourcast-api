@@ -42,7 +42,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag kuchura/your-cast-api:$(date +%s)
+        run: docker build . --file Dockerfile --tag kuchura/your-cast-api:latest
 
       - name: Docker Push
         run: docker push kuchura/your-cast-api
