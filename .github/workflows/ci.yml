@@ -31,6 +31,7 @@ jobs:
 
   tests:
     name: TESTS
+    needs: ci
     runs-on: ubuntu-latest
     container: node:18.14.2
     services:
@@ -72,6 +73,7 @@ jobs:
 
   deploy:
     name: DEPLOY
+    needs: tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
