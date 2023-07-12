@@ -85,11 +85,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag kuchura/your-cast-api:1.0.0
+        run: docker build . --file Dockerfile --tag kuchura/your-cast-api:1.0.0-$(echo $GITHUB_SHA | cut -c1-7)
 
       - name: Docker Push
-        run: docker push kuchura/your-cast-api:1.0.0
-
-      - name: Get git tag
-        id: branch
-        run: echo ${{ steps.commit.outputs.short }}
+        run: docker push kuchura/your-cast-api:1.0.0-$(echo $GITHUB_SHA | cut -c1-7)
