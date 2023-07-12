@@ -87,3 +87,12 @@ jobs:
 
       - name: Docker Push
         run: docker push kuchura/your-cast-api:1.0.0
+
+      - name: Get Branch
+        id: branch
+        run: echo "git_branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_BRANCH
+
+      - name: Get Hash
+        id: hash
+        run: echo "git_hash=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_HASH
+
