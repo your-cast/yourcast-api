@@ -92,4 +92,4 @@ jobs:
 
       - name: Get git tag
         id: branch
-        run: echo ${{ steps.tag.outputs.tag }}
+        run: echo ${{ steps.commit.outputs.short }}
