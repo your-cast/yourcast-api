@@ -49,7 +49,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -61,15 +61,21 @@ jobs:
 
       - name: Migrations to DB
         run: yarn migrations
+        env:
+          DB_HOST: postgres
+          DB_PORT: 5432
+          DB_NAME: yourcast
+          DB_USERNAME: postgres
+          DB_PASSWORD: secret
 
-  #      - name: Run tests
-  #        run: yarn test:e2e
-  #        env:
-  #          DB_HOST: postgres
-  #          DB_PORT: 5432
-  #          DB_NAME: yourcast
-  #          DB_USERNAME: postgres
-  #          DB_PASSWORD: secret
+      - name: Run tests
+        run: yarn test:e2e
+        env:
+          DB_HOST: postgres
+          DB_PORT: 5432
+          DB_NAME: yourcast
+          DB_USERNAME: postgres
+          DB_PASSWORD: secret
 
   deploy:
     name: DEPLOY
