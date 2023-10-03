@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: yarn install
@@ -33,7 +33,7 @@ jobs:
     name: TESTS
     needs: ci
     runs-on: ubuntu-latest
-    container: node:18.14.2
+    container: node:20.5.1-alpine
     services:
       postgres:
         image: postgres
@@ -54,7 +54,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: yarn install
