@@ -2,7 +2,7 @@ import {MigrationInterface, QueryRunner} from 'typeorm';
 import {Logger} from '@nestjs/common';
 
 export class CreateFollowsTable1682421376353 implements MigrationInterface {
-  private readonly logger = new Logger(CreateFollowsTable1682421376353.name);
+  private readonly logger: Logger = new Logger(CreateFollowsTable1682421376353.name);
 
   public async up(queryRunner: QueryRunner): Promise<any> {
     this.logger.log('Start migration - CreateFollowsTable1682421376353');
