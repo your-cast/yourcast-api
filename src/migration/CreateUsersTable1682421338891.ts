@@ -17,7 +17,6 @@ export class CreateUsersTable1682421338891 implements MigrationInterface {
            "email_verified_at" TIMESTAMP          DEFAULT NULL,
            "created_at"        TIMESTAMP NOT NULL DEFAULT now(),
            "updated_at"        TIMESTAMP NOT NULL DEFAULT now(),
-           CONSTRAINT "unique_name" UNIQUE ("name"),
            CONSTRAINT "unique_email" UNIQUE ("email"),
            CONSTRAINT "unique_system_id" UNIQUE ("system_id")
        )`,
