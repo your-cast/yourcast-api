@@ -77,8 +77,8 @@ jobs:
 #          DB_USERNAME: postgres
 #          DB_PASSWORD: secret
   analyze:
-    needs: tests
-    name: Analyze
+    name: ANALYZE
+    needs: ci
     runs-on: ubuntu-latest
     permissions:
       security-events: write
@@ -98,20 +98,18 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Build
-        run: |
-          ./configure
-          make
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
   deploy:
     name: DEPLOY
-    needs: tests
+    needs: [tests, analyze]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: docker login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
