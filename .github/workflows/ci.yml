@@ -9,6 +9,12 @@ on:
     branches:
       - 'main'
       - 'release/*'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Define branch name'
+        required: true
+        default: 'master'
 
 jobs:
   ci:
@@ -109,8 +115,9 @@ jobs:
     needs: [tests, analyze]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: docker login
+        if: github.ref == 'refs/heads/main'
+        uses: actions/checkout@v4
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
