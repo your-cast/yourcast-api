@@ -36,7 +36,7 @@ jobs:
         run: yarn build
 
   tests:
-    name: TESTS
+    name: Tests
     needs: ci
     runs-on: ubuntu-latest
     container: node:20.5.1-alpine
@@ -83,7 +83,7 @@ jobs:
 #          DB_USERNAME: postgres
 #          DB_PASSWORD: secret
   analyze:
-    name: ANALYZE
+    name: Analyze
     needs: ci
     runs-on: ubuntu-latest
     permissions:
@@ -111,7 +111,7 @@ jobs:
         uses: github/codeql-action/analyze@v2
 
   deploy:
-    name: DEPLOY
+    name: Deploy
     needs: [tests, analyze]
     runs-on: ubuntu-latest
     steps:
@@ -128,3 +128,35 @@ jobs:
 
       - name: Docker Push
         run: docker push kuchura/your-cast-api:1.0.0-$(echo $GITHUB_SHA | cut -c1-7)
+
+  vulnerability-scan:
+    name: Vulnerability scan
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run Trivy vulnerability scan for docker image
+        shell: sh
+        env:
+          TRIVY_USERNAME: ${{secrets.DOCKER_USER}}
+          TRIVY_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: >
+          trivy -d
+          --insecure
+          --format sarif
+          --output trivy-results.sarif
+          --security-checks vuln,config,secret
+          --vuln-type os,library
+          --severity LOW,MEDIUM,HIGH,CRITICAL
+          image kuchura/your-cast-api:1.0.0-$(echo $GITHUB_SHA | cut -c1-7)
+
+      - name: Upload scan result file
+        if: always()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-dockerfile
