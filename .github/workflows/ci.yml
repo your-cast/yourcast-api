@@ -152,7 +152,7 @@ jobs:
           --security-checks vuln,config,secret
           --vuln-type os,library
           --severity LOW,MEDIUM,HIGH,CRITICAL
-          image kuchura/your-cast-api:1.0.0-$(echo $GITHUB_SHA | cut -c1-7)
+          image kuchura/your-cast-api:1.0.0-1.0.0-ca5ecd6
 
       - name: Upload scan result file
         if: always()
