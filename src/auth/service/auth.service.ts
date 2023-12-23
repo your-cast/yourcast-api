@@ -18,7 +18,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(createUserRequest: CreateUserRequest): Promise<RegistrationResponse> {
+  async register(
+    createUserRequest: CreateUserRequest,
+  ): Promise<RegistrationResponse> {
     this.logger.log(
       `[AuthService.register try register email: ] ${createUserRequest.email}`,
     );
@@ -61,7 +63,7 @@ export class AuthService {
       `[AuthService.profile try get profile by email: ] ${request.user.email}`,
     );
 
-    const user = await this.userService.findByEmail(request.user);
+    const user: User = await this.userService.findByEmail(request.user);
 
     return {
       name: user.name,
@@ -75,13 +77,13 @@ export class AuthService {
       `[AuthService.createToken try generate token for email: ] ${email}`,
     );
 
-    const expiresIn = process.env.EXPIRESIN;
+    const expiresIn: string = process.env.EXPIRESIN;
     const payload: JwtPayload = {
       name: name,
       email: email,
       issuer: 'your-cast.com',
     };
-    const accessToken = this.jwtService.sign(payload);
+    const accessToken: string = this.jwtService.sign(payload);
     return {
       expiresIn,
       accessToken,

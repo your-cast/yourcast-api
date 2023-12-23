@@ -2,7 +2,9 @@ import {MigrationInterface, QueryRunner} from 'typeorm';
 import {Logger} from '@nestjs/common';
 
 export class CreateUsersTable1682421338891 implements MigrationInterface {
-  private readonly logger: Logger = new Logger(CreateUsersTable1682421338891.name);
+  private readonly logger: Logger = new Logger(
+    CreateUsersTable1682421338891.name
+  );
 
   public async up(queryRunner: QueryRunner): Promise<any> {
     this.logger.log('Start migration - CreateUsersTable1682421338891');

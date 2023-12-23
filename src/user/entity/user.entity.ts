@@ -1,4 +1,10 @@
-import {BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import {ApiProperty} from '@nestjs/swagger';
 import {makeSystemId} from '../../shared/utils';
@@ -16,7 +22,10 @@ export class UserEntity {
   @Column({type: 'varchar', nullable: false, name: 'password'})
   password: string;
 
-  @ApiProperty({example: 'jonh.doe@example.com', description: 'The email of the user.'})
+  @ApiProperty({
+    example: 'jonh.doe@example.com',
+    description: 'The email of the user.',
+  })
   @Column({type: 'varchar', nullable: false, unique: true, name: 'email'})
   email: string;
 

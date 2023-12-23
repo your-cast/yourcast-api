@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
 export const toPromise = <T>(data: T): Promise<T> => {
-  return new Promise<T>(resolve => {
+  return new Promise<T>((resolve) => {
     resolve(data);
   });
 };

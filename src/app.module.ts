@@ -28,14 +28,14 @@ import {CreateFollowsTable1682421376353} from './migration/CreateFollowsTable168
       extra:
         process.env.DB_SSL == 'true'
           ? {
-            ssl: {
-              rejectUnauthorized: false,
-            },
-          }
+              ssl: {
+                rejectUnauthorized: false,
+              },
+            }
           : undefined,
       migrations: [
         CreateUsersTable1682421338891,
-        CreateFollowsTable1682421376353
+        CreateFollowsTable1682421376353,
       ],
       entities: [UserEntity],
       migrationsRun: true,

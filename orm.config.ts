@@ -8,5 +8,5 @@ export const AppDataSource = new DataSource({
   password: 'secret',
   database: 'yourcast',
   synchronize: false,
-  migrations: ['./src/migration/*.{ts,js}']
+  migrations: ['./src/migration/*.{ts,js}'],
 });
