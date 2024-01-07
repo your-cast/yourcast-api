@@ -1,0 +1,1 @@
+TRUNCATE users, followers, shows CASCADE;
