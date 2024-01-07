@@ -1,4 +1,0 @@
-jwt:
-  secret: ASDF1234
-  expire: 60000
-  issuer: test.com
