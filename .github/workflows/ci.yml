@@ -30,14 +30,29 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
+      - name: Copy build file
+        run: mv build/libs/$(ls build/libs) app.jar
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: jar-file
+          path: app.jar
+
   deploy:
     name: DEPLOY
 
     needs: [ci]
 
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@master
+        with:
+          name: jar-file
+          path: app.jar
+
       - name: docker login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
