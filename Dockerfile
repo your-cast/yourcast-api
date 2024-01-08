@@ -1,10 +1,11 @@
-FROM maven:3.8.4-openjdk-17-slim AS build
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
-
 FROM eclipse-temurin:17-alpine
+
+RUN adduser -D -g AppUser -h /app -s /sbin/nologin appuser && apk upgrade -U --no-cache
+
 WORKDIR /app
-COPY --from=build target/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
+
+USER appuser
+
+COPY --chown=appuser:appuser target/*.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
