@@ -13,9 +13,7 @@ on:
 jobs:
   tests:
     name: TESTS
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,14 +25,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
+      - name: Run tests
         run: mvn verify
-
   ci:
     name: CI
-
+    needs: [tests]
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,16 +52,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: artifact
-          path: ${{ github.workspace }}/yourcast-api/target/*.jar
+          path: ${{ github.workspace }}/target/*.jar
           retention-days: 1
-
   deploy:
     name: DEPLOY
-
     needs: [ci]
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
