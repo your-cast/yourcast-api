@@ -30,13 +30,12 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Copy build file
-        run: mv build/libs/$(ls build/libs) app.jar
-
-      - uses: actions/upload-artifact@master
+      - name: Temporarily save jar artifact
+        uses: actions/upload-artifact@v2
         with:
-          name: jar-file
-          path: app.jar
+          name: artifact
+          path: ${{ github.workspace }}/yourcast-api/target/*.jar
+          retention-days: 1
 
   deploy:
     name: DEPLOY
@@ -48,10 +47,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@master
+      - uses: actions/download-artifact@v1
         with:
-          name: jar-file
-          path: app.jar
+          name: artifact
+          path: target/
 
       - name: docker login
         env:
