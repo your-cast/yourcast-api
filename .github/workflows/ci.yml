@@ -27,8 +27,8 @@ jobs:
 
       - name: Run tests
         run: mvn verify
-  ci:
-    name: CI
+  build:
+    name: BUILD
     needs: [tests]
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +56,7 @@ jobs:
           retention-days: 1
   deploy:
     name: DEPLOY
-    needs: [ci]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
