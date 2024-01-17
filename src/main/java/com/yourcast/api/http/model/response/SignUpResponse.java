@@ -12,10 +12,4 @@ public class SignUpResponse {
 
   @JsonProperty(value = "success")
   private Boolean success;
-
-  @JsonProperty(value = "accessToken")
-  private String accessToken;
-
-  @JsonProperty(value = "refreshToken")
-  private String refreshToken;
 }
