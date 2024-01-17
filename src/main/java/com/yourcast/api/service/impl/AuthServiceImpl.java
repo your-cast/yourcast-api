@@ -40,15 +40,9 @@ public class AuthServiceImpl implements AuthService {
 
     UserEntity userEntity = userRepository.save(userMapper.mapCreateUser(request));
 
-    String jwtToken = jwtService.generateToken(userEntity);
-    String refreshToken = jwtService.generateRefreshToken(userEntity);
-    saveToken(userEntity, jwtToken);
-
     SignUpResponse response = new SignUpResponse();
     response.setEmail(userEntity.getEmail());
     response.setSuccess(true);
-    response.setAccessToken(jwtToken);
-    response.setRefreshToken(refreshToken);
     return response;
   }
 
