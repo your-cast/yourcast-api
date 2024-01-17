@@ -1,8 +1,8 @@
 package com.yourcast.api.http.model.request;
 
-import jakarta.validation.constraints.Email;
 import lombok.Data;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

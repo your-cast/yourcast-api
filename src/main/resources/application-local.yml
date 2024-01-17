@@ -2,15 +2,17 @@ server:
   port: 8111
 
 spring:
-  # Datasource
-  datasource:
-    username: postgres
-    password: secret
-    url: jdbc:postgresql://localhost:5432/yourcast
   jpa:
     show-sql: true
+  properties:
+    hibernate:
+      format_sql: true
 
-jwt:
-  secret: hARKGnYYRMFNp9vGWiP5F9vlnAQ4OA9b
-  expire: 60000
-  issuer: your-cast.com
+DATASOURCE_USERNAME: postgres
+DATASOURCE_PASSWORD: secret
+DATASOURCE_URL: jdbc:postgresql://localhost:5432/yourcast
+
+JWT_SECRET: 9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9
+JWT_EXPIRE: 600000
+JWT_REFRESH_EXPIRE: 604800000
+JWT_ISSUER: your-cast.com

@@ -9,7 +9,7 @@ import com.yourcast.api.hibernate.entity.UserEntity;
 import org.springframework.data.repository.query.Param;
 
 @Transactional
-public interface UsersRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
   Optional<UserEntity> findByEmail(@Param("email") String email);
 }

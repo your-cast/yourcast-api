@@ -12,6 +12,9 @@ public class LoginResponse {
   @JsonProperty(value = "name")
   private String name;
 
-  @JsonProperty(value = "token")
-  private String token;
+  @JsonProperty(value = "accessToken")
+  private String accessToken;
+
+  @JsonProperty(value = "refreshToken")
+  private String refreshToken;
 }
