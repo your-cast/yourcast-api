@@ -1,6 +1,7 @@
 package com.yourcast.api.http.advice;
 
 import com.yourcast.api.exception.EntityAlreadyExistException;
+import com.yourcast.api.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
@@ -69,5 +70,22 @@ public class GlobalControllerAdvice {
         .reasons(List.of(reason))
         .build();
     return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+  }
+
+  @ExceptionHandler(UnauthorizedException.class)
+  public ResponseEntity<AppError> catchEntityAlreadyExistException(UnauthorizedException exception) {
+    log.error("Handled exception with message: {}", exception.getMessage(), exception);
+
+    AppErrorReason reason = AppErrorReason.builder()
+        .code(HttpStatus.UNAUTHORIZED.toString())
+        .severity("ERROR")
+        .message(exception.getMessage())
+        .build();
+
+    AppError error = AppError.builder()
+        .status(HttpStatus.UNAUTHORIZED.value())
+        .reasons(List.of(reason))
+        .build();
+    return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
   }
 }

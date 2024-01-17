@@ -10,6 +10,11 @@ spring:
   main:
     allow-bean-definition-overriding: true
     banner-mode: off
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER}
   # Database
   datasource:
     hikari:
@@ -21,9 +26,9 @@ spring:
       connection-timeout: 10000
       max-lifetime: 300000
     driver-class-name: org.postgresql.Driver
-    username:
-    password:
-    url:
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    url: ${DATASOURCE_URL}
   jpa:
     open-in-view: false
     hibernate:
@@ -42,7 +47,20 @@ logging:
 springdoc:
   version: 1.0.0
 
-jwt:
-  secret:
-  expire:
-  issuer:
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration: ${JWT_EXPIRE}
+      issuer: ${JWT_ISSUER}
+      refresh-token:
+        expiration: ${JWT_REFRESH_EXPIRE}
+
+DATASOURCE_USERNAME:
+DATASOURCE_PASSWORD:
+DATASOURCE_URL:
+
+JWT_SECRET:
+JWT_EXPIRE:
+JWT_REFRESH_EXPIRE:
+JWT_ISSUER:

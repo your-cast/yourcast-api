@@ -5,12 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import jakarta.validation.Valid;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +15,6 @@ import com.yourcast.api.service.AuthService;
 import com.yourcast.api.http.model.request.LoginRequest;
 import com.yourcast.api.http.model.request.SignUpRequest;
 import com.yourcast.api.http.model.response.LoginResponse;
-import com.yourcast.api.http.model.response.ProfileResponse;
 import com.yourcast.api.http.model.response.SignUpResponse;
 
 @Slf4j
@@ -39,10 +35,5 @@ public class AuthController {
   public SignUpResponse userRegister(@Valid @RequestBody SignUpRequest request) {
     log.info("Income request for register user: {}", request.getEmail());
     return authService.signUp(request);
-  }
-
-  @GetMapping("/profile")
-  public ProfileResponse userProfile(@RequestHeader HttpHeaders headers) {
-    return authService.profile(headers);
   }
 }
