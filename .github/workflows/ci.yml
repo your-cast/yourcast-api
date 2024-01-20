@@ -38,16 +38,6 @@ jobs:
           title: Code Coverage
           update-comment: true
 
-  formatting:
-    name: CODE STYLE
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: axel-op/googlejavaformat-action@v3
-        with:
-          args: "--skip-sorting-imports --replace"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
   build:
     name: BUILD DOCKER IMAGE
     needs: [tests, formatting]
