@@ -12,7 +12,7 @@ on:
 
 jobs:
   tests:
-    name: TESTS
+    name: TESTS & COVERAGE
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,12 +34,23 @@ jobs:
         with:
           paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 5
+          min-coverage-overall: 20
           title: Code Coverage
           update-comment: true
+
+  formatting:
+    name: CODE STYLE
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--skip-sorting-imports --replace"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
-    name: BUILD
-    needs: [tests]
+    name: BUILD DOCKER IMAGE
+    needs: [tests, formatting]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -65,7 +76,7 @@ jobs:
           path: ${{ github.workspace }}/target/*.jar
           retention-days: 1
   deploy:
-    name: DEPLOY
+    name: DEPLOY DOCKER
     needs: [build]
     runs-on: ubuntu-latest
     steps:
