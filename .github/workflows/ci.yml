@@ -12,7 +12,7 @@ on:
 
 jobs:
   tests:
-    name: TESTS
+    name: TESTS & COVERAGE
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,8 +27,19 @@ jobs:
 
       - name: Run tests
         run: mvn verify
+
+      - name: Add coverage
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 20
+          title: Code Coverage
+          update-comment: true
+
   build:
-    name: BUILD
+    name: BUILD DOCKER IMAGE
     needs: [tests]
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +66,7 @@ jobs:
           path: ${{ github.workspace }}/target/*.jar
           retention-days: 1
   deploy:
-    name: DEPLOY
+    name: DEPLOY DOCKER
     needs: [build]
     runs-on: ubuntu-latest
     steps:
