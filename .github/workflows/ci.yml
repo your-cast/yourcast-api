@@ -27,6 +27,16 @@ jobs:
 
       - name: Run tests
         run: mvn verify
+
+      - name: Add coverage
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 5
+          title: Code Coverage
+          update-comment: true
   build:
     name: BUILD
     needs: [tests]
